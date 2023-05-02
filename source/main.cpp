@@ -12,9 +12,10 @@ enum class cell
   alive,
 };
 
-auto delay() -> auto  {
+auto delay() -> auto
+{
   constexpr auto fps = 30;
-  constexpr auto usecs_in_sec = 1000*1000;
+  constexpr auto usecs_in_sec = 1000 * 1000;
   usleep(usecs_in_sec / fps);
 }
 
@@ -32,37 +33,35 @@ auto inline operator<<(std::ostream& out, cell cell) -> auto&
 struct board
 {
   board(int width, int height);
+
   int cols;
   int rows;
   std::vector<std::vector<cell>> cells;
 
   auto cell_at(int col, int row) const -> auto { return cells.at(row).at(col); }
 
-  auto cell_alive_at(int col, int row) const -> auto { return cells.at(row).at(col) == cell::alive; }
+  auto cell_alive_at(int col, int row) const -> auto
+  {
+    return cells.at(row).at(col) == cell::alive;
+  }
 
   void set(int col, int row, cell cell) { cells.at(row).at(col) = cell; }
 
-  auto alive_neighbours(int col, int row) const -> auto
+  auto alive_neighbours(int col0, int row0) const -> auto
   {
-    int alive = 0;
-    for (int delta_y = -1; delta_y <= 1; ++delta_y) {
-      for (int delta_x = -1; delta_x <= 1; ++delta_x) {
-        auto looki_x = col + delta_x;
-        auto looki_y = row + delta_y;
-        if (looki_x < 0) {
-          looki_x += cols;
-        }
-        if (looki_x >= cols) {
-          looki_x %= cols;
-        }
-        if (looki_y < 0) {
-          looki_y += rows;
-        }
-        if (looki_y >= cols) {
-          looki_y %= rows;
-        }
-        if (looki_x != col || looki_y != row) {
-          if (cell_alive_at(looki_x, looki_y)) {
+    size_t alive = 0;
+    for (int delta_row = 0; delta_row <= 2; ++delta_row) {
+      for (int delta_col = 0; delta_col <= 2; ++delta_col) {
+        if (delta_col != 1 || delta_row != 1) {
+          auto col = (col0 + delta_col - 1) % cols;
+          auto row = (row0 + delta_row - 1) % rows;
+          if (col < 0) {
+            col += cols;
+          }
+          if (row < 0) {
+            row += rows;
+          }
+          if (cell_alive_at(col, row)) {
             alive++;
           }
         }
