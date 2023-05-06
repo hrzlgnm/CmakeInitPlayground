@@ -68,6 +68,7 @@ struct Grid
 
 auto getNeighbours(const Grid& grid, int x, int y) -> Neighbours
 {
+  // NOLINTNEXTLINE(*-avoid-c-arrays):
   const Cell neighbourOffsets[] = {
       {-1, -1}, {0, -1}, {1, -1}, {-1, 0}, {1, 0}, {-1, 1}, {0, 1}, {1, 1}};
   const Cell cell(x, y);
@@ -130,11 +131,13 @@ auto drawGrid(const Grid& grid)
 
 auto glider() -> Grid
 {
+  // NOLINTNEXTLINE(*-magic-*)
   return Grid {{10, 10}, {{0, 1}, {1, 2}, {2, 0}, {2, 1}, {2, 2}}};
 }
 
 auto gosperGlider() -> Grid
 {
+  // NOLINTBEGIN(*-magic-*)
   return Grid {{50, 50},
                {{22, 8}, {12, 7},  {36, 7},  {17, 9},  {11, 8},  {1, 9},
                 {25, 4}, {2, 8},   {16, 7},  {25, 10}, {21, 6},  {23, 9},
@@ -142,6 +145,8 @@ auto gosperGlider() -> Grid
                 {25, 9}, {35, 7},  {1, 8},   {18, 9},  {22, 6},  {21, 8},
                 {23, 5}, {12, 11}, {17, 10}, {11, 9},  {35, 6},  {25, 5},
                 {2, 9},  {13, 6},  {13, 12}, {15, 9},  {16, 11}, {21, 7}}};
+  // NOLINTEND(*-magic-*)
+
 }
 
 auto main() -> int

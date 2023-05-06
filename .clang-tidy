@@ -47,12 +47,11 @@ CheckOptions:
     value: 'true'
   - key: 'readability-redundant-access-specifiers.CheckFirstDeclaration'
     value: 'true'
-# Doesn't really make sense for me
+  # Those next two are disbled due to just being annoying
   - key: 'readability-identifier-length.MinimumVariableNameLength'
     value: '0'
   - key: 'readability-identifier-length.MinimumParameterNameLength'
     value: '0'
-# These seem to be the most common identifier styles
   - key: 'readability-identifier-naming.AbstractClassCase'
     value: 'CamelCase'
   - key: 'readability-identifier-naming.ClassCase'
