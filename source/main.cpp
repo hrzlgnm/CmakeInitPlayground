@@ -45,7 +45,7 @@ struct Dimension
 
 using Cells = std::set<Cell>;
 
-struct Neighbours
+struct Neighbors
 {
   Cells alive;
   Cells dead;
@@ -66,7 +66,7 @@ struct Grid
   }
 };
 
-auto getNeighbours(const Grid& grid, int x, int y) -> Neighbours
+auto getNeighbours(const Grid& grid, int x, int y) -> Neighbors
 {
   // NOLINTNEXTLINE(*-avoid-c-arrays):
   const Cell neighbourOffsets[] = {
@@ -81,15 +81,15 @@ auto getNeighbours(const Grid& grid, int x, int y) -> Neighbours
   std::copy_if(possibleNeighbours.begin(),
                possibleNeighbours.end(),
                std::inserter(alive, alive.begin()),
-               [&grid](const Cell& neighbour) -> bool
-               { return grid.isAlive(neighbour); });
+               [&grid](const Cell& neighbor) -> bool
+               { return grid.isAlive(neighbor); });
   Cells dead;
   std::set_difference(possibleNeighbours.begin(),
                       possibleNeighbours.end(),
                       alive.begin(),
                       alive.end(),
                       std::inserter(dead, dead.begin()));
-  return Neighbours {alive, dead};
+  return Neighbors {alive, dead};
 }
 
 auto updateGrid(const Grid& grid) -> Grid
@@ -98,11 +98,11 @@ auto updateGrid(const Grid& grid) -> Grid
   std::map<Cell, int> deaded;
 
   for (const auto& cell : grid.aliveCells) {
-    const auto neighbours = getNeighbours(grid, cell.x, cell.y);
-    if (neighbours.alive.size() != 2 && neighbours.alive.size() != 3) {
+    const auto neighbors = getNeighbours(grid, cell.x, cell.y);
+    if (neighbors.alive.size() != 2 && neighbors.alive.size() != 3) {
       newCells.aliveCells.erase(cell);
     }
-    for (const auto& dead : neighbours.dead) {
+    for (const auto& dead : neighbors.dead) {
       deaded[dead] += 1;
     }
   }

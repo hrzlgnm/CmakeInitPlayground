@@ -47,7 +47,7 @@ CheckOptions:
     value: 'true'
   - key: 'readability-redundant-access-specifiers.CheckFirstDeclaration'
     value: 'true'
-  # Those next two are disbled due to just being annoying
+  # Those next two are disabled due to just being annoying
   - key: 'readability-identifier-length.MinimumVariableNameLength'
     value: '0'
   - key: 'readability-identifier-length.MinimumParameterNameLength'
