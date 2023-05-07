@@ -6,7 +6,13 @@
 #include <memory>
 #include <set>
 
-#include <unistd.h>
+#ifdef _WIN32
+#  define _WIN32_LEAN_AND_MEAN
+#  include <Windows.h>
+#  define usleep(x) Sleep(x / 1000)
+#else
+#  include <unistd.h>
+#endif
 
 auto delay() -> auto
 {
@@ -116,7 +122,7 @@ auto updateGrid(const Grid& grid) -> Grid
 
 auto drawGrid(const Grid& grid)
 {
-  std::cout << "\e[1;1H\e[2J";
+  std::cout << "\033[1;1H\033[2J";
   for (auto row = 0; row < grid.dim.height; ++row) {
     for (auto col = 0; col < grid.dim.width; ++col) {
       if (grid.isAlive(Cell(col, row))) {
