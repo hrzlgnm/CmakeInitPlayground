@@ -74,9 +74,15 @@ struct Grid
 
 auto getNeighbours(const Grid& grid, int x, int y) -> Neighbors
 {
+  // clang-format off
   // NOLINTNEXTLINE(*-avoid-c-arrays):
   const Cell neighbourOffsets[] = {
-      {-1, -1}, {0, -1}, {1, -1}, {-1, 0}, {1, 0}, {-1, 1}, {0, 1}, {1, 1}};
+      {-1, -1}, {0, -1}, {1, -1}, 
+      {-1,  0},          {1,  0}, 
+      {-1,  1}, {0,  1}, {1,  1}
+  };
+  // clang-format on
+
   const Cell cell(x, y);
   Cells possibleNeighbours;
   std::transform(std::begin(neighbourOffsets),
